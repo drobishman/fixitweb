@@ -42,6 +42,13 @@ public class Car implements Serializable {
   @NotEmpty
   @Column(name="model", nullable=false)
   private String model;
+	
+  @NotEmpty
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "car_trouble_code", 
+           joinColumns = { @JoinColumn(name = "car_id") }, 
+           inverseJoinColumns = { @JoinColumn(name = "trouble_code_id") })
+  private Set<TroubleCode> userCars = new HashSet<TroubleCode>();
   
     @Override
     public int hashCode() {
