@@ -48,9 +48,17 @@ public class Car implements Serializable {
   @JoinTable(name = "car_trouble_code", 
            joinColumns = { @JoinColumn(name = "car_id") }, 
            inverseJoinColumns = { @JoinColumn(name = "trouble_code_id") })
-  private Set<TroubleCode> userCars = new HashSet<TroubleCode>();
+  private Set<TroubleCode> troubleCodes = new HashSet<TroubleCode>();
   
-    @Override
+    public Set<TroubleCode> getTroubleCodes() {
+	return troubleCodes;
+}
+
+public void setTroubleCodes(Set<TroubleCode> troubleCodes) {
+	this.troubleCodes = troubleCodes;
+}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -116,14 +124,6 @@ public class Car implements Serializable {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	public Set<TroubleCode> getUserCars() {
-		return userCars;
-	}
-
-	public void setUserCars(Set<TroubleCode> userCars) {
-		this.userCars = userCars;
 	}
 
 	public String getModel() {
