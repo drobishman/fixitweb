@@ -4,7 +4,7 @@ import java.util.List;
 
 import fixit.model.Car;
 
-public class CarDaoImpl implements CarDao {
+public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
 
 	@Override
 	public Car findById(int id) {
