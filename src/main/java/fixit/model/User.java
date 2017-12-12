@@ -51,6 +51,13 @@ public class User implements Serializable{
              inverseJoinColumns = { @JoinColumn(name = "user_profile_id") })
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
  
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "owner_car", 
+             joinColumns = { @JoinColumn(name = "owner_id") }, 
+             inverseJoinColumns = { @JoinColumn(name = "car_id") })
+    private Set<Car> userCars = new HashSet<Car>();
+ 
     public Integer getId() {
         return id;
     }
@@ -105,6 +112,14 @@ public class User implements Serializable{
  
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
+    }
+ 
+    public Set<Car> getUserCars() {
+        return userCars;
+    }
+ 
+    public void setUserCars(Set<Car> userCars) {
+        this.userCars = userCars;
     }
  
     @Override
