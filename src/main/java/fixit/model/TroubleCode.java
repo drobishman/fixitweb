@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
 *
 *@author adrian
@@ -34,7 +36,7 @@ public class TroubleCode implements Serializable{
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + ((number == null) ? 0 : number.hashCode());
         return result;
     }
  
@@ -52,10 +54,10 @@ public class TroubleCode implements Serializable{
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (type == null) {
-            if (other.type != null)
+        if (number == null) {
+            if (other.number != null)
                 return false;
-        } else if (!type.equals(other.type))
+        } else if (!number.equals(other.number))
             return false;
         return true;
     }
@@ -65,4 +67,30 @@ public class TroubleCode implements Serializable{
         return "Trouble code [id=" + id + ", number=" + number + ", faultLocation"+ faultLocation +"]";
     }
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getFaultLocation() {
+		return faultLocation;
+	}
+
+	public void setFaultLocation(String faultLocation) {
+		this.faultLocation = faultLocation;
+	}
+
+    
+    
 }
