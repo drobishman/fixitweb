@@ -2,6 +2,13 @@ package fixit.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fixit.model.Car;
 
 public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
@@ -12,9 +19,9 @@ public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
 	public Car findById(int id) {
 		Car car = getByKey(id);
         if(car!=null){
-            Hibernate.initialize(car.getTroubleCodes);
+            Hibernate.initialize(car.getTroubleCodes());
         }
-        return user;
+        return car;
 	}
 
 	@Override
@@ -43,7 +50,7 @@ public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
         for(Car car : cars){
             Hibernate.initialize(car.getTroubleCodes());
         }*/
-        return users;
+        return cars;
 	}
 
 }
