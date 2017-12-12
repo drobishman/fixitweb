@@ -118,6 +118,14 @@ public class Car implements Serializable {
 		this.brand = brand;
 	}
 
+	public Set<TroubleCode> getUserCars() {
+		return userCars;
+	}
+
+	public void setUserCars(Set<TroubleCode> userCars) {
+		this.userCars = userCars;
+	}
+
 	public String getModel() {
 		return model;
 	}
