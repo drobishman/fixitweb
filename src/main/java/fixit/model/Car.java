@@ -41,7 +41,7 @@ public class Car implements Serializable {
   
   @NotEmpty
   @Column(name="model", nullable=false)
-  private String chasisNumber;
+  private String model;
   
     @Override
     public int hashCode() {
@@ -78,5 +78,45 @@ public class Car implements Serializable {
     public String toString() {
         return "Car [id=" + id + ", registrationNumber=" + registrationNumber + ", chasisNumber="+ chasisNumber +", brand=" + brand +", model="+ model + "]";
     }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public String getChasisNumber() {
+		return chasisNumber;
+	}
+
+	public void setChasisNumber(String chasisNumber) {
+		this.chasisNumber = chasisNumber;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
 
 }
