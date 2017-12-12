@@ -23,6 +23,47 @@ CREATE TABLE app_user_user_profile (
     CONSTRAINT fk_app_user FOREIGN KEY (user_id) REFERENCES app_user (id),
     CONSTRAINT fk_user_profile FOREIGN KEY (user_profile_id) REFERENCES user_profile (id)
 );
+
+CREATE TABLE car (
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   registration_number VARCHAR(10) NOT NULL,
+   chasis_number VARCHAR(30) NOT NULL,
+   brand VARCHAR(50) NOT NULL,
+   model VARCHAR(50) NOT NULL,
+   PRIMARY KEY (id),
+   UNIQUE (registration_number)
+);
+
+CREATE TABLE owner_car (
+   owner_id BIGINT NOT NULL,
+   car_id BIGINT NOT NULL,
+   PRIMARY KEY (owner_id, car_id),
+   CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES app_user (id),
+   CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES car (id)
+);
+
+CREATE TABLE trouble_code (
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   number VARCHAR(10) NOT NULL,
+   fault_location VARCHAR(100) NOT NULL,
+   PRIMARY KEY (id),
+   UNIQUE (number)
+);
+
+CREATE TABLE car_trouble_code (
+   car_id BIGINT NOT NULL,
+   trouble_code_id BIGINT NOT NULL,
+   PRIMARY KEY (car_id, trouble_code_id),
+   CONSTRAINT fk_broken_car FOREIGN KEY (car_id) REFERENCES car (id),
+   CONSTRAINT fk_trouble_code FOREIGN KEY (trouble_code_id) REFERENCES trouble_code (id)
+);
+
+-- insert into database some test data
+INSERT INTO car(registration_number, chasis_number, brand, model)
+VALUES ('NT04DAL','numar sasiu','caruta','stricata');
+  
+INSERT INTO `trouble_code`(number, fault_location)
+VALUES ('P1000','OBDII Monitor Testing Not Complete (Ford, Jaguar, Lincoln) Secondary AIR Delivery (BMW, MB, MINI)');  
   
 INSERT INTO user_profile(type)
 VALUES ('USER');
@@ -41,6 +82,7 @@ INSERT INTO app_user_user_profile (user_id, user_profile_id)
   SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='sam' and profile.type='ADMIN';
 
+-- create the table for persistent logins
 CREATE TABLE persistent_logins (
     username VARCHAR(64) NOT NULL,
     series VARCHAR(64) NOT NULL,
