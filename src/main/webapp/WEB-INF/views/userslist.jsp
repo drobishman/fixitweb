@@ -16,7 +16,7 @@
 	<div class="generic-container">
 		<%@include file="authheader.jsp" %>	
 		<div class="panel panel-default">
-			  <!-- Default panel contents -->
+			  <!-- Users -->
 		  	<div class="panel-heading"><span class="lead">List of Users </span></div>
 			<table class="table table-hover">
 	    		<thead>
@@ -52,6 +52,55 @@
 	    		</tbody>
 	    	</table>
 		</div>
+		
+		<!-- Cars -->
+		<sec:authorize access="hasRole('ADMIN')">
+		<div class="panel-heading"><span class="lead">List of Cars </span></div>
+			<table class="table table-hover">
+	    		<thead>
+		      		<tr>
+				        <th>Registration number</th>
+				        <th>Chasis number</th>
+				        <th>Brand</th>
+				        <th>Model</th>
+				</tr>
+		    	</thead>
+	    		<tbody>
+				<c:forEach items="${cars}" var="car">
+					<tr>
+						<td>${car.registrationNumber}</td>
+						<td>${user.chasisNumber}</td>
+						<td>${user.brand}</td>
+						<td>${user.model}</td>
+					</tr>
+				</c:forEach>
+	    		</tbody>
+	    	</table>
+		</div>
+		</sec:authorize>
+	
+		<!-- Trouble Codes -->
+		<sec:authorize access="hasRole('ADMIN')">
+		<div class="panel-heading"><span class="lead">List of Trouble Codes </span></div>
+			<table class="table table-hover">
+	    		<thead>
+		      		<tr>
+				        <th>Number</th>
+				        <th>Fault Location</th>
+				</tr>
+		    	</thead>
+	    		<tbody>
+				<c:forEach items="${troubleCodes}" var="troubleCode">
+					<tr>
+						<td>${troubleCode.number}</td>
+						<td>${troubleCode.faultLocation}</td>
+					</tr>
+				</c:forEach>
+	    		</tbody>
+	    	</table>
+		</div>
+		</sec:authorize>
+		
 		<sec:authorize access="hasRole('ADMIN')">
 		 	<div class="well">
 		 		<a href="<c:url value='/newuser' />">Add New User</a>
