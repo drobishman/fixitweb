@@ -13,7 +13,7 @@ import fixit.model.TroubleCode;
  
 @Service("troubleCodeService")
 @Transactional
-public class TroubleCodeServiceImpl implements UserService{
+public class TroubleCodeServiceImpl implements TroubleCodeService{
  
     @Autowired
     private TroubleCodeDao dao;
