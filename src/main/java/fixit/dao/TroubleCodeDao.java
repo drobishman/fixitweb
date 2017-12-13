@@ -8,7 +8,7 @@ public interface TroubleCodeDao {
   
     TroubleCode findById(int id);
      
-    User findByNumber(String number);
+    TroubleCode findByNumber(String number);
      
     void save(TroubleCode troubleCode);
      
