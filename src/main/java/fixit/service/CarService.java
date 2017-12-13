@@ -10,13 +10,11 @@ public interface CarService {
      
     Car findById(int id);
      
-    Car findBySSO(String sso);
+    void saveCar(Car car);
      
-    void saveCar(User user);
+    void updateCar(Car car);
      
-    void updateCar(User user);
-     
-    void deleteCarBySSO(String sso);
+    void deleteCarById(Integer id);
  
     List<Car> findAllCars(); 
  
