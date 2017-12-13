@@ -40,6 +40,12 @@ public class AppController {
     UserService userService;
      
     @Autowired
+    UserService carService;
+ 
+    @Autowired
+    UserService troubleCodeService;
+ 
+    @Autowired
     UserProfileService userProfileService;
      
     @Autowired
@@ -61,6 +67,10 @@ public class AppController {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("loggedinuser", getPrincipal());
+        List<Car> cars = carService.findAllCars();
+        model.addAtribute("cars", cars);
+        List<TroubleCode> troubleCodes = troubleCodeService.findAllTroubleCodes();
+        model.addAttribute("troubleCodes", troubleCodes):
         return "userslist";
     }
  
