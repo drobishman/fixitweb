@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import fixit.model.Car;
+import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
 import fixit.service.UserProfileService;
@@ -68,9 +70,9 @@ public class AppController {
         model.addAttribute("users", users);
         model.addAttribute("loggedinuser", getPrincipal());
         List<Car> cars = carService.findAllCars();
-        model.addAtribute("cars", cars);
+        model.addAttribute("cars", cars);
         List<TroubleCode> troubleCodes = troubleCodeService.findAllTroubleCodes();
-        model.addAttribute("troubleCodes", troubleCodes):
+        model.addAttribute("troubleCodes", troubleCodes);
         return "userslist";
     }
  

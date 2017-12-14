@@ -32,16 +32,16 @@ public class TroubleCodeServiceImpl implements TroubleCodeService{
      * It will be updated in db once transaction ends. 
      */
     public void updateTroubleCode(TroubleCode troubleCode) {
-        TroubleCode entity = dao.findById(user.getId());
+        TroubleCode entity = dao.findById(troubleCode.getId());
         if(entity!=null){
-            entity.setNumber(user.getNumber());
-            entity.setFaultLocation(user.getFaultLocation());
+            entity.setNumber(troubleCode.getNumber());
+            entity.setFaultLocation(troubleCode.getFaultLocation());
         }
     }
  
      
-    public void deleteTroubleCodeById(int id) {
-        dao.deleteById(id);
+    public void deleteTroubleCodeByNumber(String number) {
+        dao.deleteByNumber(number);
     }
  
     public List<TroubleCode> findAllTroubleCodes() {

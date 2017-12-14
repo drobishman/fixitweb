@@ -9,14 +9,12 @@ import fixit.model.TroubleCode;
 public interface TroubleCodeService {
      
     TroubleCode findById(int id);
-    
-    TroubleCode findByNumber(String number);
      
     void saveTroubleCode(TroubleCode troubleCode);
      
     void updateTroubleCode(TroubleCode troubleCode);
      
-    void deleteTroubleCodeById(Integer id);
+    void deleteTroubleCodeByNumber(String number);
  
     List<TroubleCode> findAllTroubleCodes(); 
  
