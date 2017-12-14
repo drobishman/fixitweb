@@ -8,9 +8,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import fixit.model.Car;
 
+@Repository("carDao")
 public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
 	
 	static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);

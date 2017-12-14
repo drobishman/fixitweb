@@ -49,8 +49,7 @@ public class CarServiceImpl implements CarService{
 
 	@Override
 	public List<Car> findAllCars() {
-		// ¥
-		return null;
+		return dao.findAllCars();
 	}
 
 }
