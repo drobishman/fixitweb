@@ -28,6 +28,8 @@ import fixit.model.Car;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
+import fixit.service.CarService;
+import fixit.service.TroubleCodeService;
 import fixit.service.UserProfileService;
 import fixit.service.UserService;
  
@@ -42,10 +44,10 @@ public class AppController {
     UserService userService;
      
     @Autowired
-    UserService carService;
+    CarService carService;
  
     @Autowired
-    UserService troubleCodeService;
+    TroubleCodeService troubleCodeService;
  
     @Autowired
     UserProfileService userProfileService;
