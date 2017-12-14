@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fixit.dao.CarDao;
 import fixit.model.Car;
+import fixit.model.TroubleCode;
  
  
 @Service("carService")
@@ -35,19 +36,21 @@ public class CarServiceImpl implements CarService{
     public void updateCar(Car car){
        Car entity = dao.findById(car.getId());
         if(entity!=null){
-            entity.setRegistrationNumber(car.getFirstRegistrationNumber());
-            entity.setChasisNumber(user.getChasisNumber());
-            entity.setBrand(user.getBrand());
-            entity.setModel(user.getModel());
+            entity.setRegistrationNumber(car.getRegistrationNumber());
+            entity.setChasisNumber(car.getChasisNumber());
+            entity.setBrand(car.getBrand());
+            entity.setModel(car.getModel());
         }
     }
      
     public void deleteCarById(Integer id){
         dao.deleteById(id);
     }
- 
-    public List<Car> findAllCars(){
-        return dao.findAllCars();
-    }
+
+	@Override
+	public List<Car> findAllCars() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

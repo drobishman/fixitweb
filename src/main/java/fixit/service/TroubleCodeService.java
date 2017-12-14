@@ -6,7 +6,7 @@ import java.util.List;
 import fixit.model.TroubleCode;
  
  
-public interface CarService {
+public interface TroubleCodeService {
      
     TroubleCode findById(int id);
     

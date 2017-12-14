@@ -8,8 +8,6 @@ public interface TroubleCodeDao {
   
     TroubleCode findById(int id);
      
-    TroubleCode findByNumber(String number);
-     
     void save(TroubleCode troubleCode);
      
     void deleteByNumber(String number);

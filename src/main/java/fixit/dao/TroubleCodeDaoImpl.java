@@ -2,6 +2,10 @@ package fixit.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
 import fixit.model.TroubleCode;
 import fixit.model.User;
 
@@ -13,11 +17,6 @@ public class TroubleCodeDaoImpl extends AbstractDao<Integer, TroubleCode> implem
         	return troubleCode;
 	}
 
-	@Override
-	public User findByNumber(String number) {
-		TroubleCode troubleCode = getByNumber(id);
-        	return troubleCode;
-	}
 
 	@Override
 	public void save(TroubleCode troubleCode) {
@@ -38,7 +37,7 @@ public class TroubleCodeDaoImpl extends AbstractDao<Integer, TroubleCode> implem
 	public List<TroubleCode> findAllTroubleCodes() {
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("number"));
         	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-        	List<TroubleCode> troubleCodes = (List<TroubleCodes>) criteria.list();
+        	List<TroubleCode> troubleCodes = (List<TroubleCode>) criteria.list();
         	return troubleCodes;
 	}
 
