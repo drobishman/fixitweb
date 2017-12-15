@@ -65,7 +65,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${userCars}" var="car">
+								<c:forEach items="${user.userCars}" var="car">
 									<tr>
 										<td>${car.registrationNumber}</td>
 										<td>${car.chasisNumber}</td>
