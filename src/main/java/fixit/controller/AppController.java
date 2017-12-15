@@ -91,6 +91,18 @@ public class AppController {
     }
  
     /**
+     * This method will provide the medium to add a new trouble code.
+     */
+    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.GET)
+    public String newTroubleCode(ModelMap model) {
+        TroubleCode troubleCode = new TroubleCode();
+        model.addAttribute("troubleCode", troubleCode);
+        model.addAttribute("edit", false);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "registration";
+    }
+ 
+    /**
      * This method will be called on form submission, handling POST request for
      * saving user in database. It also validates the user input
      */
