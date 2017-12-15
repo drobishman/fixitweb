@@ -116,7 +116,7 @@ public class AppController {
          
         troubleCodeService.saveTroubleCode(troubleCode);
  
-        model.addAttribute("success", "TroubleCode " + troubleCode.getNumber() + " "+ troubleCode.getFaultPosition + " registered successfully");
+        model.addAttribute("success", "TroubleCode " + troubleCode.getNumber() + " "+ troubleCode.getFaultLocation + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
         //return "success";
         return "addtroublecodesuccess";
