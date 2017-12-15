@@ -24,7 +24,7 @@
 				<span class="lead">List of Users </span>
 			</div>
 					<c:forEach items="${users}" var="user">
-						<thead>
+						
 							<tr>
 								<th>Firstname</th>
 								<th>Lastname</th>
@@ -38,7 +38,7 @@
 								</sec:authorize>
 
 							</tr>
-						</thead>
+						
 						<tr>
 							<td>${user.firstName}</td>
 							<td>${user.lastName}</td>
