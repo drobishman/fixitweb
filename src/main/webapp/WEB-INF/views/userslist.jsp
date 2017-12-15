@@ -23,9 +23,6 @@
 			<div class="panel-heading">
 				<span class="lead">List of Users </span>
 			</div>
-			<table class="table table-hover">
-				
-				<tbody>
 					<c:forEach items="${users}" var="user">
 						<thead>
 							<tr>
@@ -77,8 +74,6 @@
 							</tbody>
 						</table>
 					</c:forEach>
-				</tbody>
-			</table>
 		</div>
 		
 		<sec:authorize access="hasRole('ADMIN')">
