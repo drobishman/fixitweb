@@ -24,23 +24,24 @@
 				<span class="lead">List of Users </span>
 			</div>
 			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Firstname</th>
-						<th>Lastname</th>
-						<th>Email</th>
-						<th>SSO ID</th>
-						<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-							<th width="100"></th>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ADMIN')">
-							<th width="100"></th>
-						</sec:authorize>
-
-					</tr>
-				</thead>
+				
 				<tbody>
 					<c:forEach items="${users}" var="user">
+						<thead>
+							<tr>
+								<th>Firstname</th>
+								<th>Lastname</th>
+								<th>Email</th>
+								<th>SSO ID</th>
+								<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+									<th width="100"></th>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ADMIN')">
+									<th width="100"></th>
+								</sec:authorize>
+
+							</tr>
+						</thead>
 						<tr>
 							<td>${user.firstName}</td>
 							<td>${user.lastName}</td>
