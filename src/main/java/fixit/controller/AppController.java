@@ -99,6 +99,7 @@ public class AppController {
         model.addAttribute("troubleCode", troubleCode);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
+        System.out.println("Epic fail!");
         return "registration";
     }
  
