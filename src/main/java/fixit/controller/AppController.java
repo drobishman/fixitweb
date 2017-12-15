@@ -99,8 +99,27 @@ public class AppController {
         model.addAttribute("troubleCode", troubleCode);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
-        System.out.println("Epic fail!");
         return "addtroublecode";
+    }
+ 
+    /**
+     * This method will be called on form submission, handling POST request for
+     * saving user in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.POST)
+    public String saveTroubleCode(@Valid TroubleCode troubleCode, BindingResult result,
+            ModelMap model) {
+ 
+        if (result.hasErrors()) {
+            return "addtroublecode";
+        }
+         
+        troubleCodeService.saveTroubleCode(troubleCode);
+ 
+        model.addAttribute("success", "TroubleCode " + troubleCode.getNumber() + " "+ troubleCode.getFaultPosition + " registered successfully");
+        model.addAttribute("loggedinuser", getPrincipal());
+        //return "success";
+        return "addtroublecodesuccess";
     }
  
     /**
