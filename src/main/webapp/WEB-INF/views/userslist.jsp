@@ -55,6 +55,26 @@
 									class="btn btn-danger custom-width">delete</a></td>
 							</sec:authorize>
 						</tr>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Registration number</th>
+									<th>Chasis number</th>
+									<th>Brand</th>
+									<th>Model</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${user.cars}" var="car">
+									<tr>
+										<td>${car.registrationNumber}</td>
+										<td>${car.chasisNumber}</td>
+										<td>${car.brand}</td>
+										<td>${car.model}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</c:forEach>
 				</tbody>
 			</table>
