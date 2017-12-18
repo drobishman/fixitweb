@@ -15,10 +15,10 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 
-<body style="overflow: scroll;">
+<body>
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
-		<div class="panel panel-default">
+		<div class="panel panel-default" style="overflow: scroll;">
 			
 			<!-- Logged User -->
 			<sec:authorize access="hasRole('USER')">
