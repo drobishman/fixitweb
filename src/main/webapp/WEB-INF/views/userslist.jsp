@@ -16,7 +16,6 @@
 </head>
 
 <body>
-	<div style="overflow: scroll; height : 90%;>
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
@@ -193,6 +192,5 @@
 			</div>
 		</sec:authorize>
 	</div>
-	</div> 
 </body>
 </html>
