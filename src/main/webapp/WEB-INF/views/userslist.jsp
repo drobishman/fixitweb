@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<div class="generic-container" style="overflow: hidden; height: 100%;">
+	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
 			
