@@ -15,7 +15,7 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 
-<body style="overflow: auto;">
+<body style="overflow: scroll;">
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
