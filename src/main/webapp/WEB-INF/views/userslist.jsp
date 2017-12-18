@@ -16,9 +16,9 @@
 </head>
 
 <body>
-	<div class="generic-container">
+	<div class="generic-container" style="overflow: scroll;">
 		<%@include file="authheader.jsp"%>
-		<div class="panel panel-default" style="overflow: scroll;">
+		<div class="panel panel-default">
 			
 			<!-- Logged User -->
 			<sec:authorize access="hasRole('USER')">
