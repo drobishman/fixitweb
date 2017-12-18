@@ -70,7 +70,7 @@ public class AppController {
  
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        User loggedinuser = userService.findBySSO(getPrincipal().getUsername());
+        User loggedinuser = userService.findBySSO(getPrincipal());
         model.addAttribute("loggedinuser", loggedinuser);
         List<Car> cars = carService.findAllCars();
         model.addAttribute("cars", cars);
