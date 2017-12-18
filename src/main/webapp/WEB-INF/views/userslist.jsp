@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<div style="overflow: scroll;">
+	<div style="overflow: scroll; height : 90%; max-height:500px">
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
