@@ -62,6 +62,8 @@
 										<td>${car.chasisNumber}</td>
 										<td>${car.brand}</td>
 										<td>${car.model}</td>
+										<th width="100"></th>
+										<th width="100"></th>
 									</tr>
 								</c:forEach>
 							</tbody>
