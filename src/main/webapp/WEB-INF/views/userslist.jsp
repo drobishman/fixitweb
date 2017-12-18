@@ -49,8 +49,6 @@
 								<td><a href="<c:url value='/delete-user-${user.ssoId}' />"
 									class="btn btn-danger custom-width">delete</a></td>
 							</tr>
-					
-						<span class="lead">List of User's cars </span>
 						<table class="table table-hover">
 							<thead>
 								<tr>
