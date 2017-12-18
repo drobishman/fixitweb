@@ -15,8 +15,7 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 
-<body>
-	<div style="width:100px;height:100px;overflow:auto;">
+<body style="overflow: auto;">
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
@@ -192,7 +191,6 @@
 				<a href="<c:url value='/newTroubleCode' />">Add New TroubleCode</a>
 			</div>
 		</sec:authorize>
-	</div>
 	</div>
 </body>
 </html>
