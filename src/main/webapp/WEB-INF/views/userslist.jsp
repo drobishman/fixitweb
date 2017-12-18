@@ -193,5 +193,6 @@
 			</div>
 		</sec:authorize>
 	</div>
+	</div>
 </body>
 </html>
