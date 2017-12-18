@@ -23,6 +23,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         User user = getByKey(id);
         if(user!=null){
             Hibernate.initialize(user.getUserProfiles());
+            Hibernate.initialize(user.getUserCars());
         }
         return user;
     }
@@ -34,6 +35,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         User user = (User)crit.uniqueResult();
         if(user!=null){
             Hibernate.initialize(user.getUserProfiles());
+            Hibernate.initialize(user.getUserCars());
         }
         return user;
     }
