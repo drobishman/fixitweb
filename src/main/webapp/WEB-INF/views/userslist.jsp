@@ -20,6 +20,56 @@
 		<%@include file="authheader.jsp"%>
 		<div class="panel panel-default">
 			
+			<!-- Logged User -->
+			<sec:authorize access="hasRole('USER')">
+				<div class="panel-heading">
+				<span class="lead">User details and cars </span>
+				</div> 
+				<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Firstname</th>
+								<th>Lastname</th>
+								<th>Email</th>
+								<th>SSO ID</th>
+								<th width="100"></th>
+								<th width="100"></th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>${loggedinuser.firstName}</td>
+								<td>${loggedinuser.lastName}</td>
+								<td>${loggedinuser.email}</td>
+								<td>${loggedinuser.ssoId}</td>
+								<td><a href="<c:url value='/edit-user-${user.ssoId}' />"
+									class="btn btn-success custom-width">edit</a></td>
+								<td><a href="<c:url value='/delete-user-${user.ssoId}' />"
+									class="btn btn-danger custom-width">delete</a></td>
+							</tr>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Registration number</th>
+									<th>Chasis number</th>
+									<th>Brand</th>
+									<th>Model</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${loggedinuser.userCars}" var="car">
+									<tr>
+										<td>${car.registrationNumber}</td>
+										<td>${car.chasisNumber}</td>
+										<td>${car.brand}</td>
+										<td>${car.model}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+			</sec:authorize>
+			
 			<!-- Users -->
 			<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 			<div class="panel-heading">
