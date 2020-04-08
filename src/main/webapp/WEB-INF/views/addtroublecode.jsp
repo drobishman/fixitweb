@@ -14,7 +14,6 @@
 
 <body>
  	<div class="generic-container">
-		<%@include file="authheader.jsp" %>
 
 		<div class="well lead">Add new trouble code</div>
 	 	<form:form method="POST" modelAttribute="troubleCode" class="form-horizontal">

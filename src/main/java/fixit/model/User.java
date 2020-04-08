@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="app_user")
 public class User implements Serializable{
  
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
  
     @NotEmpty
@@ -51,7 +51,6 @@ public class User implements Serializable{
              inverseJoinColumns = { @JoinColumn(name = "user_profile_id") })
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
  
-    @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "owner_car", 
              joinColumns = { @JoinColumn(name = "owner_id") }, 

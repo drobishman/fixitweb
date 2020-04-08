@@ -132,6 +132,8 @@ public class AppController {
             ModelMap model) {
  
         if (result.hasErrors()) {
+        	
+        	System.out.println("Fail 1 " + user.toString() + result.toString());
             return "registration";
         }
  
@@ -194,6 +196,7 @@ public class AppController {
  
         model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
+        
         return "registrationsuccess";
     }
  
