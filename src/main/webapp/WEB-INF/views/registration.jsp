@@ -85,25 +85,40 @@
 					</div>
 				</div>
 			</div>
-	
+			
 			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-3 control-lable" for="userProfiles">Roles</label>
-					<div class="col-md-7">
-						<form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
-						<div class="has-error">
-							<form:errors path="userProfiles" class="help-inline"/>
+				<c:choose>
+					<c:when test="${loggedinuser == 'anonymousUser'}">
+						<div class="col-md-7">
+							<form:input type="hidden" path="userProfiles" id="id" value="1"/>
+							<div class="has-error">
+								<form:errors path="userProfiles" class="help-inline"/>
+							</div>
+						</div>	
+					</c:when>
+					<c:otherwise>
+						<label class="col-md-3 control-lable" for="userProfiles">Roles</label>
+						<div class="col-md-7">
+							<form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
+							<div class="has-error">
+								<form:errors path="userProfiles" class="help-inline"/>
+							</div>
 						</div>
-					</div>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="form-group col-md-12">
-				<label class="col-md-3 control-lable">Add your car to your profile</label>
 					<div class="col-md-7">
-						<a href="<c:url value='/list' />" class="btn btn-success btn-sm" >Add car</a>
-					</div>
+					<c:choose>
+						<c:when test="${loggedinuser != 'anonymousUser'}">
+							<a href="<c:url value='/list' />" class="btn btn-success btn-sm" >Add car</a>
+						</c:when>
+					</c:choose>
+				</div>
 				</div>
 			</div>
 	
@@ -119,6 +134,7 @@
 					</c:choose>
 				</div>
 			</div>
+
 		</form:form>
 	</div>
 </body>

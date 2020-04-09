@@ -128,7 +128,7 @@
 		
 		<sec:authorize access="hasRole('ADMIN')or hasRole('DBA')">
 			<div class="well">
-				<a href="<c:url value='/newuser' />">Add New User</a>
+				<a href="<c:url value='/newuser' />" class="btn btn-default btn-sm" >Add New User</a>
 			</div>
 		</sec:authorize>
 
@@ -188,7 +188,7 @@
 
 		<sec:authorize access="hasRole('ADMIN')">
 			<div class="well">
-				<a href="<c:url value='/newTroubleCode' />">Add New TroubleCode</a>
+				<a href="<c:url value='/newTroubleCode' />" class="btn btn-default btn-sm">Add New TroubleCode</a>
 			</div>
 		</sec:authorize>
 	</div>

@@ -24,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fixit.model.Car;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
+import fixit.security.CustomUserDetailsService;
 import fixit.service.CarService;
 import fixit.service.TroubleCodeService;
 import fixit.service.UserProfileService;
@@ -60,6 +64,8 @@ public class AppController {
      
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
+    
+    static final Logger logger = LoggerFactory.getLogger(AppController.class);
      
      
     /**
@@ -268,6 +274,8 @@ public class AppController {
         } else {
             userName = principal.toString();
         }
+        
+        logger.info(userName.toString());
         return userName;
     }
      
