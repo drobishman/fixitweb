@@ -97,15 +97,24 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable">Add your car to your profile</label>
+					<div class="col-md-7">
+						<a href="<c:url value='/list' />" class="btn btn-success btn-sm" >Add car</a>
+					</div>
+				</div>
+			</div>
 	
 			<div class="row">
 				<div class="form-actions floatRight">
 					<c:choose>
 						<c:when test="${edit}">
-							<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
+							<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />" class="btn btn-default btn-sm" >Cancel</a>
 						</c:when>
 						<c:otherwise>
-							<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
+							<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />" class="btn btn-default btn-sm">Cancel</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
