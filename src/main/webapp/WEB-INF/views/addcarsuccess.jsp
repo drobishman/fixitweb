@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Registration Confirmation Page</title>
+	<title>Add new car success</title>
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
@@ -18,7 +18,7 @@
 		</div>
 		
 		<span class="well floatRight">
-			Go <a href="<c:url value='/list' />">back</a>
+			Go to <a href="<c:url value='/list' />">Users List</a>
 		</span>
 	</div>
 </body>
