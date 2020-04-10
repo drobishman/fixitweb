@@ -1,8 +1,10 @@
 package fixit.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
- 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -93,40 +95,9 @@ public class AppController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
         return "registration";
-    }
- 
-    /**
-     * This method will provide the medium to add a new trouble code.
-     */
-    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.GET)
-    public String newTroubleCode(ModelMap model) {
-        TroubleCode troubleCode = new TroubleCode();
-        model.addAttribute("troubleCode", troubleCode);
-        model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "addtroublecode";
-    }
- 
-    /**
-     * This method will be called on form submission, handling POST request for
-     * saving user in database. It also validates the user input
-     */
-    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.POST)
-    public String saveTroubleCode(@Valid TroubleCode troubleCode, BindingResult result,
-            ModelMap model) {
- 
-        if (result.hasErrors()) {
-            return "addtroublecode";
-        }
-         
-        troubleCodeService.saveTroubleCode(troubleCode);
- 
-        model.addAttribute("success", "TroubleCode " + troubleCode.getNumber() + " "+ troubleCode.getFaultLocation() + " registered successfully");
-        model.addAttribute("loggedinuser", getPrincipal());
-        //return "success";
-        return "addtroublecodesuccess";
     }
  
     /**
@@ -142,7 +113,7 @@ public class AppController {
         	System.out.println("Fail 1 " + user.toString() + result.toString());
             return "registration";
         }
- 
+        
         /*
          * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation 
          * and applying it on field [sso] of Model class [User].
@@ -160,10 +131,88 @@ public class AppController {
         userService.saveUser(user);
  
         model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
-        model.addAttribute("loggedinuser", getPrincipal());
-        //return "success";
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
         return "registrationsuccess";
     }
+    
+    /**
+     * This method will provide the medium to add a new trouble code.
+     */
+    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.GET)
+    public String newTroubleCode(ModelMap model) {
+        TroubleCode troubleCode = new TroubleCode();
+        model.addAttribute("troubleCode", troubleCode);
+        model.addAttribute("edit", false);
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        return "addtroublecode";
+    }
+ 
+    /**
+     * This method will be called on form submission, handling POST request for
+     * saving trouble code in database. It also validates the trouble code input
+     */
+    @RequestMapping(value = { "/newTroubleCode" }, method = RequestMethod.POST)
+    public String saveTroubleCode(@Valid TroubleCode troubleCode, BindingResult result,
+            ModelMap model) {
+ 
+        if (result.hasErrors()) {
+            return "addtroublecode";
+        }
+         
+        troubleCodeService.saveTroubleCode(troubleCode);
+ 
+        model.addAttribute("success", "TroubleCode " + troubleCode.getNumber() + " "+ troubleCode.getFaultLocation() + " registered successfully");
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        return "addtroublecodesuccess";
+    }
+    
+    /**
+     * This method will provide the medium to add a new car.
+     */
+    @RequestMapping(value = { "/newcar" }, method = RequestMethod.GET)
+    public String newCar(ModelMap model) {
+        Car car = new Car();
+        model.addAttribute("car", car);
+        model.addAttribute("edit", false);
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        logger.info(car.toString());
+        return "addcar";
+    }
+    
+    /**
+     * This method will be called on form submission, handling POST request for
+     * saving car in database. It also validates the car input
+     */
+    @RequestMapping(value = { "/newcar" }, method = RequestMethod.POST)
+    public String saveCar(@Valid Car car, BindingResult result,
+            ModelMap model) {
+ 
+        if (result.hasErrors()) {
+        	logger.info(result.toString() + car.toString());
+            return "addcar";
+        }
+         
+        carService.saveCar(car);
+ 
+        model.addAttribute("success", "car " + car.getRegistrationNumber() + " "+ car.getChasisNumber() +" "+ car.getBrand() +" "+ car.getModel()+ " registered successfully");
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        
+        Set <Car> userCars =  loggedinuser.getUserCars();
+        userCars.add(car);
+        loggedinuser.setUserCars(userCars);
+        userService.updateUser(loggedinuser);
+        
+        logger.info(loggedinuser.getUserCars().toString());
+        
+        return "addcarsuccess";
+    }
+ 
+    
  
  
     /**
@@ -275,7 +324,6 @@ public class AppController {
             userName = principal.toString();
         }
         
-        logger.info(userName.toString());
         return userName;
     }
      

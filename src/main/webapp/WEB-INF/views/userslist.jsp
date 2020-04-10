@@ -23,7 +23,7 @@
 			<!-- Logged User -->
 			<sec:authorize access="hasRole('USER')">
 				<div class="panel-heading">
-				<span class="lead">User details and cars </span>
+					<span class="lead">User details and cars </span>
 				</div> 
 				<table class="table table-hover">
 						<thead>
@@ -46,7 +46,13 @@
 								<td><a href="<c:url value='/edit-user-${user.ssoId}' />"
 									class="btn btn-success custom-width">edit</a></td>
 							</tr>
-						<table class="table table-hover">
+					</table>
+					
+					<div class="panel-heading">
+						<span class="lead">User cars </span>
+					</div> 
+					
+					<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>Registration number</th>
@@ -68,6 +74,15 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
+						<div class="row">
+						<div class="form-group col-md-12">
+							<div class="col-md-7">
+								<a href="<c:url value='/newcar' />" class="btn btn-success btn-sm" >Add car</a>
+							</div>
+						</div>
+					</div>
+						
 			</sec:authorize>
 			
 			<!-- Users -->
@@ -99,6 +114,8 @@
 								<td><a href="<c:url value='/delete-user-${user.ssoId}' />"
 									class="btn btn-danger custom-width">delete</a></td>
 							</tr>
+						</table>
+						
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -119,16 +136,12 @@
 								</c:forEach>
 							</tbody>
 						</table>
-					</c:forEach>
-					
-				</tbody>
-			</table>
-		</div>
+					</c:forEach>	
 		</sec:authorize>
 		
 		<sec:authorize access="hasRole('ADMIN')or hasRole('DBA')">
 			<div class="well">
-				<a href="<c:url value='/newuser' />" class="btn btn-default btn-sm" >Add New User</a>
+				<a href="<c:url value='/newuser' />" class="btn btn-default">Add New User</a>
 			</div>
 		</sec:authorize>
 
@@ -188,9 +201,10 @@
 
 		<sec:authorize access="hasRole('ADMIN')">
 			<div class="well">
-				<a href="<c:url value='/newTroubleCode' />" class="btn btn-default btn-sm">Add New TroubleCode</a>
+				<a href="<c:url value='/newTroubleCode' />" class="btn btn-default" >Add New TroubleCode</a>
 			</div>
 		</sec:authorize>
+	</div>
 	</div>
 </body>
 </html>

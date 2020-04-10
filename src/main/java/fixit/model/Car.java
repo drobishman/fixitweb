@@ -43,7 +43,6 @@ public class Car implements Serializable {
   @Column(name="model", nullable=false)
   private String model;
 	
-  @NotEmpty
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "car_trouble_code", 
            joinColumns = { @JoinColumn(name = "car_id") }, 
