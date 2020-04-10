@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 
@@ -14,7 +15,7 @@
 
 <body>
  	<div class="generic-container">
-		
+		<%@include file="authheader.jsp"%>
 		<div class="well lead">User Registration Form</div>
 	 	<form:form method="POST" modelAttribute="user" class="form-horizontal">
 			<form:input type="hidden" path="id" id="id"/>
@@ -98,13 +99,25 @@
 						</div>	
 					</c:when>
 					<c:otherwise>
-						<label class="col-md-3 control-lable" for="userProfiles">Roles</label>
-						<div class="col-md-7">
-							<form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
-							<div class="has-error">
-								<form:errors path="userProfiles" class="help-inline"/>
+						<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+							<label class="col-md-3 control-lable" for="userProfiles">Roles</label>
+								<div class="col-md-7">
+									<form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="userProfiles" class="help-inline"/>
+									</div>
+								</div>
+						</sec:authorize>
+						
+						<sec:authorize access="hasRole('USER')">
+							<div class="col-md-7">
+								<form:input type="hidden" path="userProfiles" id="id" value="1"/>
+								<div class="has-error">
+									<form:errors path="userProfiles" class="help-inline"/>
+								</div>
 							</div>
-						</div>
+						</sec:authorize>	
+						
 					</c:otherwise>
 				</c:choose>
 				</div>

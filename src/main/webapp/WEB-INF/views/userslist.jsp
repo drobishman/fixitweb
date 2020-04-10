@@ -34,7 +34,6 @@
 								<th>SSO ID</th>
 								<th width="100"></th>
 								<th width="100"></th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -43,7 +42,9 @@
 								<td>${loggedinuser.lastName}</td>
 								<td>${loggedinuser.email}</td>
 								<td>${loggedinuser.ssoId}</td>
-								<td><a href="<c:url value='/edit-user-${user.ssoId}' />"
+								<th width="100"></th>
+								<th width="100"></th>
+								<td><a href="<c:url value='/edit-user-${loggedinuser.ssoId}' />"
 									class="btn btn-success custom-width">edit</a></td>
 							</tr>
 					</table>
@@ -59,6 +60,10 @@
 									<th>Chasis number</th>
 									<th>Brand</th>
 									<th>Model</th>
+									<th width="100"></th>
+									<th width="100"></th>
+									<td><a href="<c:url value='/newcar' />" 
+										class="btn btn-success custom-width" >Add car</a></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -74,15 +79,6 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						
-						<div class="row">
-						<div class="form-group col-md-12">
-							<div class="col-md-7">
-								<a href="<c:url value='/newcar' />" class="btn btn-success btn-sm" >Add car</a>
-							</div>
-						</div>
-					</div>
-						
 			</sec:authorize>
 			
 			<!-- Users -->

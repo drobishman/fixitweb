@@ -223,7 +223,8 @@ public class AppController {
         User user = userService.findBySSO(ssoId);
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
-        model.addAttribute("loggedinuser", getPrincipal());
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
         return "registration";
     }
      
@@ -246,11 +247,14 @@ public class AppController {
             return "registration";
         }*/
  
- 
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        
+        user.setUserCars(loggedinuser.getUserCars());
+        
         userService.updateUser(user);
  
         model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
-        model.addAttribute("loggedinuser", getPrincipal());
         
         return "registrationsuccess";
     }
