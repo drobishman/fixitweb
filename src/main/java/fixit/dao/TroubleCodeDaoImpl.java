@@ -26,9 +26,9 @@ public class TroubleCodeDaoImpl extends AbstractDao<Integer, TroubleCode> implem
 	}
 
 	@Override
-	public void deleteByNumber(String number) {
+	public void deleteById(int id) {
 		Criteria crit = createEntityCriteria();
-        	crit.add(Restrictions.eq("number", number));
+        	crit.add(Restrictions.eq("id", id));
        		TroubleCode troubleCode = (TroubleCode)crit.uniqueResult();
       		delete(troubleCode);
 		

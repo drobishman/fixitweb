@@ -39,7 +39,7 @@ CREATE TABLE owner_car (
    car_id BIGINT NOT NULL,
    PRIMARY KEY (owner_id, car_id),
    CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES app_user (id),
-   CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES car (id)
+   CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES car (id) ON DELETE CASCADE
 );
 
 CREATE TABLE trouble_code (
@@ -51,20 +51,17 @@ CREATE TABLE trouble_code (
 );
 
 CREATE TABLE car_trouble_code (
+   id BIGINT NOT NULL AUTO_INCREMENT,
    car_id BIGINT NOT NULL,
    trouble_code_id BIGINT NOT NULL,
-   PRIMARY KEY (car_id, trouble_code_id),
+   job VARCHAR(50),
+   PRIMARY KEY (id),
    CONSTRAINT fk_broken_car FOREIGN KEY (car_id) REFERENCES car (id),
-   CONSTRAINT fk_trouble_code FOREIGN KEY (trouble_code_id) REFERENCES trouble_code (id)
+   CONSTRAINT fk_trouble_code FOREIGN KEY (trouble_code_id) REFERENCES trouble_code (id) ON DELETE CASCADE
 );
 
 -- insert into database some test data
-INSERT INTO car(registration_number, chasis_number, brand, model)
-VALUES ('NT04DAL','numar sasiu','caruta','stricata');
-  
-INSERT INTO `trouble_code`(number, fault_location)
-VALUES ('P1000','OBDII Monitor Testing Not Complete (Ford, Jaguar, Lincoln) Secondary AIR Delivery (BMW, MB, MINI)');  
-  
+
 INSERT INTO user_profile(type)
 VALUES ('USER');
   
@@ -73,14 +70,33 @@ VALUES ('ADMIN');
   
 INSERT INTO user_profile(type)
 VALUES ('DBA');
-  
-  
+
 INSERT INTO app_user(sso_id, password, first_name, last_name, email)
 VALUES ('sam','$2a$10$.9hCqKyQdKSB.tixU5NUZ.iccZ.Hr8n4Ezv8h43O0oHPKmUDTCwWO', 'Sam','Smith','samy@xyz.com');
   
 INSERT INTO app_user_user_profile (user_id, user_profile_id)
   SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='sam' and profile.type='ADMIN';
+
+INSERT INTO car(registration_number, chasis_number, brand, model)
+VALUES ('NT04DAL','numar sasiu','caruta','stricata');
+
+INSERT INTO owner_car(owner_id, car_id)
+VALUES (1,1);
+  
+INSERT INTO `trouble_code`(number, fault_location)
+VALUES ('P1000','OBDII Monitor Testing Not Complete (Ford, Jaguar, Lincoln) Secondary AIR Delivery (BMW, MB, MINI)');  
+
+-- test data
+
+INSERT into car_trouble_code (car_id, trouble_code_id, job)
+Values (2,1,'treaba rezolvata');
+  
+INSERT into car_trouble_code (car_id, trouble_code_id, job)
+Values (2,2,'treaba rezolvata 1');
+
+INSERT into car_trouble_code (car_id, trouble_code_id, job)
+Values (2,3,'treaba rezolvata 2');
 
 -- create the table for persistent logins
 CREATE TABLE persistent_logins (

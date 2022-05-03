@@ -40,8 +40,8 @@ public class TroubleCodeServiceImpl implements TroubleCodeService{
     }
  
      
-    public void deleteTroubleCodeByNumber(String number) {
-        dao.deleteByNumber(number);
+    public void deleteTroubleCodeById(int id) {
+        dao.deleteById(id);
     }
  
     public List<TroubleCode> findAllTroubleCodes() {

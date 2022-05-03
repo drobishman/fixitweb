@@ -10,7 +10,7 @@ public interface TroubleCodeDao {
      
     void save(TroubleCode troubleCode);
      
-    void deleteByNumber(String number);
+    void deleteById(int id);
      
     List<TroubleCode> findAllTroubleCodes();
 

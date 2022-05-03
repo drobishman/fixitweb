@@ -14,7 +14,7 @@ public interface TroubleCodeService {
      
     void updateTroubleCode(TroubleCode troubleCode);
      
-    void deleteTroubleCodeByNumber(String number);
+    void deleteTroubleCodeById(int id);
  
     List<TroubleCode> findAllTroubleCodes(); 
  

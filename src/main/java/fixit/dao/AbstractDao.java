@@ -27,6 +27,9 @@ public abstract class AbstractDao<PK extends Serializable, T> {
  
     @SuppressWarnings("unchecked")
     public T getByKey(PK key) {
+    	
+    	System.out.println("id = " + key + "AbstractDAo");
+    	
         return (T) getSession().get(persistentClass, key);
     }
  

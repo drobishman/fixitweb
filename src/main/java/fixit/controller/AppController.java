@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fixit.model.Car;
+import fixit.model.CarTroubleCode;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
@@ -38,6 +39,7 @@ import fixit.service.CarService;
 import fixit.service.TroubleCodeService;
 import fixit.service.UserProfileService;
 import fixit.service.UserService;
+import fixit.service.CarTroubleCodeService;
  
  
  
@@ -54,6 +56,9 @@ public class AppController {
  
     @Autowired
     TroubleCodeService troubleCodeService;
+    
+    @Autowired
+    CarTroubleCodeService carTroubleCodeService;
  
     @Autowired
     UserProfileService userProfileService;
@@ -76,14 +81,21 @@ public class AppController {
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
  
+    	//list all users
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
+        //list logged user
         User loggedinuser = userService.findBySSO(getPrincipal());
         model.addAttribute("loggedinuser", loggedinuser);
+        //List all cars
         List<Car> cars = carService.findAllCars();
         model.addAttribute("cars", cars);
+        //List all trouble codes
         List<TroubleCode> troubleCodes = troubleCodeService.findAllTroubleCodes();
         model.addAttribute("troubleCodes", troubleCodes);
+        //List all car trouble codes
+        List<CarTroubleCode> carTroubleCodes = carTroubleCodeService.findAllCarTroubleCodes();
+        model.addAttribute("carTroubleCodes", carTroubleCodes);
         return "userslist";
     }
  
@@ -258,6 +270,118 @@ public class AppController {
         
         return "registrationsuccess";
     }
+    
+    /**
+     * This method will provide the medium to update an existing car.
+     */
+    @RequestMapping(value = { "/edit-car-{id}" }, method = RequestMethod.GET)
+    public String editCar(@PathVariable int id, ModelMap model) {
+        Car car = carService.findById(id);
+        model.addAttribute("car", car);
+        model.addAttribute("edit", true);
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        return "addcar";
+    }
+    
+    /**
+     * This method will be called on form submission, handling POST request for
+     * updating car in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/edit-car-{id}" }, method = RequestMethod.POST)
+    public String updateCar(@Valid Car car, BindingResult result,
+            ModelMap model, @PathVariable int id) {
+ 
+        if (result.hasErrors()) {
+            return "addcar";
+        }
+ 
+        Car currentCar = carService.findById(id);
+        model.addAttribute("currentCar", currentCar);
+        
+        car.setCarTroubleCodes(currentCar.getCarTroubleCodes());
+        
+        carService.updateCar(car);
+ 
+        model.addAttribute("success", "User " + car.getBrand() + " "+ car.getModel() + " updated successfully");
+        
+        return "addcarsuccess";
+    }
+     
+   
+    /**
+     * This method will provide the medium to update an existing trouble code.
+     */
+    @RequestMapping(value = { "/edit-trouble_code-{id}" }, method = RequestMethod.GET)
+    public String editTroubleCode(@PathVariable int id, ModelMap model) {
+        TroubleCode troubleCode = troubleCodeService.findById(id);
+        model.addAttribute("troubleCode", troubleCode);
+        model.addAttribute("edit", true);
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        return "addtroublecode";
+    }
+    
+    /**
+     * This method will be called on form submission, handling POST request for
+     * updating trouble code in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/edit-trouble_code-{id}" }, method = RequestMethod.POST)
+    public String updateTroubleCode(@Valid TroubleCode troubleCode, BindingResult result,
+            ModelMap model, @PathVariable int id) {
+ 
+        if (result.hasErrors()) {
+            return "addtroublecode";
+        }
+ 
+        TroubleCode currentTroubleCode = troubleCodeService.findById(id);
+        model.addAttribute("currentTroubleCode", currentTroubleCode);
+        
+        troubleCodeService.updateTroubleCode(troubleCode);
+ 
+        model.addAttribute("success", "User " + troubleCode.getNumber() + " "+ troubleCode.getFaultLocation() + " updated successfully");
+        
+        return "addtroublecodesuccess";
+    }
+    
+    /**
+     * This method will provide the medium to update an existing car trouble code.
+     */
+    @RequestMapping(value = { "/edit-car_trouble_code-{id}" }, method = RequestMethod.GET)
+    public String editCarTroubleCode(@PathVariable int id, ModelMap model) {
+    	
+        CarTroubleCode carTroubleCode = carTroubleCodeService.findById(id);
+        
+        model.addAttribute("carTroubleCode", carTroubleCode);
+        model.addAttribute("edit", true);
+        User loggedinuser = userService.findBySSO(getPrincipal());
+        model.addAttribute("loggedinuser", loggedinuser);
+        return "editcartroublecode";
+    }
+    
+    /**
+     * This method will be called on form submission, handling POST request for
+     * updating car trouble code in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/edit-car_trouble_code-{id}" }, method = RequestMethod.POST)
+    public String updateCarTroubleCode(@Valid CarTroubleCode carTroubleCode, BindingResult result,
+            ModelMap model, @PathVariable int id) {
+ 
+        if (result.hasErrors()) {
+            return "editcartroublecode";
+        }
+ 
+        CarTroubleCode currentCarTroubleCode = carTroubleCodeService.findById(id);
+        model.addAttribute("currentCarTroubleCode", currentCarTroubleCode);
+        
+        carTroubleCodeService.updateCarTroubleCode(carTroubleCode);
+        
+        System.out.println(carTroubleCode.toString());
+ 
+        model.addAttribute("success", "User " + carTroubleCode.getJob() + " updated successfully");
+        
+        return "editcartroublecodesuccess";
+    }
  
      
     /**
@@ -266,6 +390,24 @@ public class AppController {
     @RequestMapping(value = { "/delete-user-{ssoId}" }, method = RequestMethod.GET)
     public String deleteUser(@PathVariable String ssoId) {
         userService.deleteUserBySSO(ssoId);
+        return "redirect:/list";
+    }
+    
+    /**
+     * This method will delete a car by it's ID value.
+     */
+    @RequestMapping(value = { "/delete-car-{id}" }, method = RequestMethod.GET)
+    public String deleteCar(@PathVariable int id) {
+        carService.deleteCarById(id);
+        return "redirect:/list";
+    }
+    
+    /**
+     * This method will delete an trouble code by it's id value.
+     */
+    @RequestMapping(value = { "/delete-trouble_code-{id}" }, method = RequestMethod.GET)
+    public String deleteTroubleCode(@PathVariable int id) {
+        troubleCodeService.deleteTroubleCodeById(id);
         return "redirect:/list";
     }
      

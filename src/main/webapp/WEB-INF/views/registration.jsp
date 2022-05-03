@@ -109,15 +109,12 @@
 								</div>
 						</sec:authorize>
 						
-						<sec:authorize access="hasRole('USER')">
-							<div class="col-md-7">
-								<form:input type="hidden" path="userProfiles" id="id" value="1"/>
-								<div class="has-error">
-									<form:errors path="userProfiles" class="help-inline"/>
-								</div>
+						<div class="col-md-7">
+							<form:input type="hidden" path="userProfiles" id="id" value="1"/>
+							<div class="has-error">
+								<form:errors path="userProfiles" class="help-inline"/>
 							</div>
-						</sec:authorize>	
-						
+						</div>	
 					</c:otherwise>
 				</c:choose>
 				</div>
