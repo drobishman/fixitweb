@@ -92,7 +92,7 @@
 								<tr>
 									<td>${troubleCode.number}</td>
 									<td>${troubleCode.faultLocation}</td>
-									<td>${carTroubleCodes.job}</td>
+									
 									<th width="100"></th>
 									<th width="100"></th>
 								</tr>
