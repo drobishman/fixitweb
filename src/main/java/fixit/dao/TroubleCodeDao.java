@@ -7,6 +7,8 @@ import fixit.model.*;
 public interface TroubleCodeDao {
   
     TroubleCode findById(int id);
+    
+    TroubleCode findByNumber(String number);
      
     void save(TroubleCode troubleCode);
      

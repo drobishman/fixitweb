@@ -14,14 +14,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import javax.validation.constraints.NotEmpty;
  
-import org.hibernate.validator.constraints.NotEmpty;
  
 @Entity
 @Table(name="app_user")
 public class User implements Serializable{
  
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
  
     @NotEmpty
@@ -44,7 +50,10 @@ public class User implements Serializable{
     @Column(name="email", nullable=false)
     private String email;
  
-    @NotEmpty
+    @Column(name="logged_in", nullable=false)
+    private boolean loggedIn;
+
+	@NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "app_user_user_profile", 
              joinColumns = { @JoinColumn(name = "user_id") }, 
@@ -104,6 +113,14 @@ public class User implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
  
     public Set<UserProfile> getUserProfiles() {
         return userProfiles;

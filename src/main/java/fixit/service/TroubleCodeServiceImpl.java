@@ -46,5 +46,10 @@ public class TroubleCodeServiceImpl implements TroubleCodeService{
  
     public List<TroubleCode> findAllTroubleCodes() {
         return dao.findAllTroubleCodes();
-    }   
+    }
+
+	@Override
+	public TroubleCode findByNumber(String number) {
+		return dao.findByNumber(number);
+	}   
 }

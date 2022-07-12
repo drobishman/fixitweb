@@ -13,7 +13,12 @@ import javax.persistence.Table;
 @Table(name="user_profile")
 public class UserProfile implements Serializable{
  
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id; 
  
     @Column(name="TYPE", length=15, unique=true, nullable=false)

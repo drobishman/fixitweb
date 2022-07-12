@@ -9,6 +9,8 @@ import fixit.model.TroubleCode;
 public interface TroubleCodeService {
      
     TroubleCode findById(int id);
+    
+    TroubleCode findByNumber(String number);
      
     void saveTroubleCode(TroubleCode troubleCode);
      

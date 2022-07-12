@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 /**
 *
@@ -20,7 +20,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="trouble_code")
 public class TroubleCode implements Serializable{
   
-   @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
    private Integer id; 
   
    @NotEmpty
@@ -64,7 +69,7 @@ public class TroubleCode implements Serializable{
  
     @Override
     public String toString() {
-        return "Trouble code [id=" + id + ", number=" + number + ", faultLocation"+ faultLocation +"]";
+        return "Trouble code [id=" + id + ", number=" + number + ", faultLocation="+ faultLocation +"]";
     }
 
 	public Integer getId() {

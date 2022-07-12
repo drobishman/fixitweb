@@ -1,6 +1,5 @@
 package fixit.controller;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -20,11 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +30,11 @@ import fixit.model.CarTroubleCode;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
-import fixit.security.CustomUserDetailsService;
 import fixit.service.CarService;
 import fixit.service.TroubleCodeService;
 import fixit.service.UserProfileService;
 import fixit.service.UserService;
+import fixit.util.Status;
 import fixit.service.CarTroubleCodeService;
  
  
@@ -480,6 +476,24 @@ public class AppController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver.isAnonymous(authentication);
     }
- 
- 
+    
+    @RequestMapping(value="/troublecodebyid-{troubleCode.id}", method=RequestMethod.GET, produces = "application/json")
+    public  @ResponseBody String troubleCode(@PathVariable("troubleCode.id") int id){
+		
+    	TroubleCode troubleCode = this.troubleCodeService.findById(id);
+       
+    	if(troubleCode== null) return "[not found]";
+        
+        return troubleCode.toString();
+    }
+    
+    @RequestMapping(value="/troublecodebynumber-{troubleCode.number}", method=RequestMethod.GET, produces = "application/json")
+    public  @ResponseBody String troubleCodeNumber(@PathVariable("troubleCode.number") String number){
+		
+    	TroubleCode troubleCode = this.troubleCodeService.findByNumber(number);
+       
+    	if(troubleCode== null) return "[not found]";
+        
+        return troubleCode.toString();
+    }
 }

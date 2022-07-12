@@ -5,6 +5,7 @@ create table app_user (
    first_name VARCHAR(30) NOT NULL,
    last_name  VARCHAR(30) NOT NULL,
    email VARCHAR(30) NOT NULL,
+   logged_in BOOLEAN,
    PRIMARY KEY (id),
    UNIQUE (sso_id)
 );
