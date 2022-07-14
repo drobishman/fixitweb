@@ -476,24 +476,4 @@ public class AppController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver.isAnonymous(authentication);
     }
-    
-    @RequestMapping(value="/troublecodebyid-{troubleCode.id}", method=RequestMethod.GET, produces = "application/json")
-    public  @ResponseBody String troubleCode(@PathVariable("troubleCode.id") int id){
-		
-    	TroubleCode troubleCode = this.troubleCodeService.findById(id);
-       
-    	if(troubleCode== null) return "[not found]";
-        
-        return troubleCode.toString();
-    }
-    
-    @RequestMapping(value="/troublecodebynumber-{troubleCode.number}", method=RequestMethod.GET, produces = "application/json")
-    public  @ResponseBody String troubleCodeNumber(@PathVariable("troubleCode.number") String number){
-		
-    	TroubleCode troubleCode = this.troubleCodeService.findByNumber(number);
-       
-    	if(troubleCode== null) return "[not found]";
-        
-        return troubleCode.toString();
-    }
 }
