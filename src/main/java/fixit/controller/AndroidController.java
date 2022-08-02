@@ -3,6 +3,7 @@ package fixit.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import fixit.model.Car;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
@@ -192,5 +193,40 @@ public class AndroidController {
 		JSONObject jsonObject = new JSONObject(troubleCode);
 		return jsonObject.toString();
 	}
+	
+	/**
+	 * 
+	 * method to add a new car to a user
+	 * 
+	 * @param ssoId
+	 * @param registrationNumber
+	 * @param chasisNumber
+	 * @param brand
+	 * @param model
+	 * @return
+	 */
+
+	@RequestMapping(value="/addcar", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String androidAddCar(String ssoId, String registrationNumber, String chasisNumber, String brand, String model){
+
+		Car newCar = new Car ();
+		
+		newCar.setRegistrationNumber(registrationNumber);
+		newCar.setChasisNumber(chasisNumber);
+		newCar.setBrand(brand);
+		newCar.setModel(model);
+		
+		User user = userService.findBySSO(ssoId);
+		
+		if(!Objects.isNull(user)) {
+			
+			user.getUserCars().add(newCar);
+			userService.updateUser(user);
+			return "SUCCESS";
+			
+		} else 
+			return "FAILURE";
+	}
+
 
 }
