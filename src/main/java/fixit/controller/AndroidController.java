@@ -9,6 +9,7 @@ import fixit.model.UserProfile;
 import fixit.service.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -43,21 +44,29 @@ public class AndroidController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		User user = userService.findBySSO(ssoId);
-
-
 		if(Objects.isNull(user))
 			return "FAIL";
-
-		if (encoder.matches(password, user.getPassword()) && user.isLoggedIn() != true) {
-
+		if (encoder.matches(password, user.getPassword())) {
+			//deleted checks if user is logged in.
 			user.setLoggedIn(true);
+			System.out.println("In user logged in = " + user.isLoggedIn());
+			userService.updateUser(user);
 			JSONObject jsonObject = new JSONObject(user);
 			return jsonObject.toString();
-		}
 
-		else
-			return "FAIL";
+		}else return "FAIL";
 	}
+
+	/**
+	 * Method used to register a new user from android
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param ssoId
+	 * @param password
+	 * @param email
+	 * @return
+	 */
 
 	@RequestMapping(value="/register", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String androidRegister(String firstName, String lastName, String ssoId, String password, String email){
@@ -69,6 +78,7 @@ public class AndroidController {
 		newUser.setSsoId(ssoId);
 		newUser.setPassword(password);
 		newUser.setEmail(email);
+		newUser.setLoggedIn(true);
 
 		UserProfile userProfile= new UserProfile ();
 		userProfile.setId(1);
@@ -79,16 +89,74 @@ public class AndroidController {
 
 		newUser.setUserProfiles(userProfiles);
 
-		System.out.println(newUser.toString());
-
 		try {
 			userService.saveUser(newUser);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "FAIL";
 		}
 
-		return "SUCCESS";
 
+		JSONObject jsonObject = new JSONObject(newUser);
+		return jsonObject.toString();
+
+	}
+
+	@RequestMapping(value="/update", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String androidUpdate(String firstName, String lastName, String ssoId, String password, String email){
+
+		User newUser = new User ();
+
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		newUser.setSsoId(ssoId);
+		newUser.setPassword(password);
+		newUser.setEmail(email);
+		newUser.setLoggedIn(true);
+
+		UserProfile userProfile= new UserProfile ();
+		userProfile.setId(1);
+		userProfile.setType("USER");
+
+		Set<UserProfile> userProfiles = new HashSet<UserProfile>();;
+		userProfiles.add(userProfile);
+
+		newUser.setUserProfiles(userProfiles);
+		
+		newUser.setUserCars(userService.findBySSO(ssoId).getUserCars());
+
+		System.out.println("Android Controller"+newUser.toString());
+
+		try {
+			userService.updateUser(newUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "FAIL";
+		}
+
+
+		JSONObject jsonObject = new JSONObject(newUser);
+		return jsonObject.toString();
+
+	}
+
+	/**
+	 * 
+	 * Method used to logout from android application
+	 * 
+	 * @param ssoId
+	 * @return
+	 */
+
+	@RequestMapping(value="/logoff", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String androidLogoff(String ssoId){
+
+		User user = userService.findBySSO(ssoId);
+		if(!Objects.isNull(user)) {
+			user.setLoggedIn(false);
+			userService.updateUser(user);
+			return "SUCCESS";
+		} else return "FAILURE";
 	}
 
 

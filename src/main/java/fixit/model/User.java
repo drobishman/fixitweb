@@ -177,7 +177,7 @@ public class User implements Serializable{
     public String toString() {
         return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
                 + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", email=" + email + "]";
+                + ", email=" + email + ", loggedIn=" + loggedIn +"]";
     }
  
  

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
      * It will be updated in db once transaction ends. 
      */
     public void updateUser(User user) {
-        User entity = dao.findById(user.getId());
+        User entity = dao.findBySSO(user.getSsoId());
         if(entity!=null){
             entity.setSsoId(user.getSsoId());
             if(!user.getPassword().equals(entity.getPassword())){
@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService{
             entity.setEmail(user.getEmail());
             entity.setUserProfiles(user.getUserProfiles());
             entity.setUserCars(user.getUserCars());
+            entity.setLoggedIn(user.isLoggedIn());
         }
     }
  
