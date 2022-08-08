@@ -249,6 +249,7 @@ public class AndroidController {
 			e.printStackTrace();
 			return "FAILURE";
 		}
+	}
 
 		/**
 		 * method used to update a car by ID
