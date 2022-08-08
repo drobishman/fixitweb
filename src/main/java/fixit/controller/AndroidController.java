@@ -31,6 +31,9 @@ public class AndroidController {
 	@Autowired
 	UserProfileService userProfileService;
 
+	@Autowired
+	CarService carService;
+
 	/**
 	 * 
 	 * Method that returns an user as JSONObject from credentials
@@ -123,7 +126,7 @@ public class AndroidController {
 		userProfiles.add(userProfile);
 
 		newUser.setUserProfiles(userProfiles);
-		
+
 		newUser.setUserCars(userService.findBySSO(ssoId).getUserCars());
 
 		System.out.println("Android Controller"+newUser.toString());
@@ -193,7 +196,7 @@ public class AndroidController {
 		JSONObject jsonObject = new JSONObject(troubleCode);
 		return jsonObject.toString();
 	}
-	
+
 	/**
 	 * 
 	 * method to add a new car to a user
@@ -210,22 +213,69 @@ public class AndroidController {
 	public @ResponseBody String androidAddCar(String ssoId, String registrationNumber, String chasisNumber, String brand, String model){
 
 		Car newCar = new Car ();
-		
+
 		newCar.setRegistrationNumber(registrationNumber);
 		newCar.setChasisNumber(chasisNumber);
 		newCar.setBrand(brand);
 		newCar.setModel(model);
-		
+
 		User user = userService.findBySSO(ssoId);
-		
+
 		if(!Objects.isNull(user)) {
-			
+
+			carService.saveCar(newCar);
 			user.getUserCars().add(newCar);
 			userService.updateUser(user);
 			return "SUCCESS";
-			
+
 		} else 
 			return "FAILURE";
+	}
+
+
+	/**
+	 * method used to delete a car by ID.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/deletecar", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String androidDeleteCar(int id){
+
+
+		try {
+			carService.deleteCarById(id);
+			return "SUCCESS";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "FAILURE";
+		}
+
+		/**
+		 * method used to update a car by ID
+		 * @param id
+		 * @param registrationNumber
+		 * @param chasisNumber
+		 * @param brand
+		 * @param model
+		 * @return
+		 */
+		@RequestMapping(value="/updatecar", method = RequestMethod.GET, produces = "application/json")
+		public @ResponseBody String androidUpdateCar(int id, String registrationNumber, String chasisNumber, String brand, String model){
+
+			Car car = carService.findById(id);
+			
+			car.setChasisNumber(chasisNumber);
+			car.setRegistrationNumber(registrationNumber);
+			car.setBrand(brand);
+			car.setModel(model);
+
+			try {
+				carService.updateCar(car);
+				return "SUCCESS";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "FAILURE";
+			}
 	}
 
 
