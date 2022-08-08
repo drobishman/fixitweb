@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import fixit.model.Car;
+import fixit.model.User;
 
 @Repository("carDao")
 public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
@@ -53,6 +54,18 @@ public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
             Hibernate.initialize(car.getTroubleCodes());
         }*/
         return cars;
+	}
+
+	@Override
+	public Car findByChasisNumber(String chasisNumber) {
+		logger.info("chasisNumber : {}", chasisNumber);
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("chasisNumber", chasisNumber));
+        Car car = (Car)crit.uniqueResult();
+        if(car!=null){
+            Hibernate.initialize(car.getCarTroubleCodes());
+        }
+        return car;
 	}
 
 }

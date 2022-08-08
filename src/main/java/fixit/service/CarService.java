@@ -9,6 +9,8 @@ import fixit.model.*;
 public interface CarService {
      
     Car findById(int id);
+    
+    Car findByChasisNumber(String chasisNumber);
      
     void saveCar(Car car);
      

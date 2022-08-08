@@ -7,6 +7,8 @@ import fixit.model.*;
 public interface CarDao {
 
    Car findById(int id);
+   
+   Car findByChasisNumber(String chasisNumber);
   
    void save(Car car);
   

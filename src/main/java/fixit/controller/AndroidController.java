@@ -226,7 +226,7 @@ public class AndroidController {
 			carService.saveCar(newCar);
 			user.getUserCars().add(newCar);
 			userService.updateUser(user);
-			return "SUCCESS";
+			return carService.findByChasisNumber(chasisNumber).getId().toString();
 
 		} else 
 			return "FAILURE";

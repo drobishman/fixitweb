@@ -51,4 +51,10 @@ public class CarServiceImpl implements CarService{
 		return dao.findAllCars();
 	}
 
+	@Override
+	public Car findByChasisNumber(String chasisNumber) {
+	
+		return dao.findByChasisNumber(chasisNumber);
+	}
+
 }
