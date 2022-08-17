@@ -37,7 +37,7 @@ public class CarTroubleCode implements Serializable{
 	
 	@NotNull
 	@Column(name="car_id", nullable=false, insertable = false, updatable = false)
-	private Integer carId;
+	private int carId;
 
 	
 	@NotNull
@@ -63,7 +63,7 @@ public class CarTroubleCode implements Serializable{
 		this.car = car;
 	}
 
-	CarTroubleCode(){
+	public CarTroubleCode(){
 
 	}
 	

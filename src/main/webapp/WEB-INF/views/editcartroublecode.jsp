@@ -18,8 +18,7 @@
 	<div class="generic-container">
 		<%@include file="authheader.jsp"%>
 		<div class="well lead">Edit car trouble code</div>
-		<form:form method="POST" modelAttribute="carTroubleCode"
-			class="form-horizontal">
+		<form:form method="POST" modelAttribute="carTroubleCode" class="form-horizontal">
 			<form:input type="hidden" path="id" id="id" />
 			<form:input type="hidden" path="troubleCodeId" id="troubleCodeId" />
 			<form:input type="hidden" path="carId" id="carId" />

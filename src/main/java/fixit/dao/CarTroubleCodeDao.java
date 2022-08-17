@@ -14,4 +14,6 @@ public interface CarTroubleCodeDao {
 
 	List<CarTroubleCode> findAllCarTroubleCodes();
 
+	List<CarTroubleCode> findByCarId(int carId);
+
 }

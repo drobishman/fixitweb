@@ -84,19 +84,21 @@
 							<tr>
 								<th>Code</th>
 								<th>Description</th>
+								<th>Jobs done</th>
 								<th width="100"></th>
 								<th width="100"></th>
 							</tr>
 
-							<c:forEach items="${car.troubleCodes}" var="troubleCode">
+							<c:forEach items="${car.carTroubleCodes}" var="carTroubleCode">
 								<tr>
-									<td>${troubleCode.number}</td>
-									<td>${troubleCode.faultLocation}</td>
-									
+									<td>${carTroubleCode.troubleCode.number}</td>
+									<td>${carTroubleCode.troubleCode.faultLocation}</td>
+									<td>${carTroubleCode.job}</td>
 									<th width="100"></th>
 									<th width="100"></th>
 								</tr>
 							</c:forEach>
+							<%-- uncomment this old
 							<th>Jobs done</th>
 							<th>Related Trouble Code</th>
 							<c:forEach items="${car.carTroubleCodes}" var="carTroubleCode">
@@ -106,7 +108,7 @@
 									<th width="100"></th>
 									<th width="100"></th>
 								</tr>
-							</c:forEach>
+							</c:forEach> --%>
 						</c:forEach>
 					</tbody>
 				</table>

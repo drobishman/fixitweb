@@ -1,9 +1,12 @@
 package fixit.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import fixit.model.Car;
+import fixit.model.CarTroubleCode;
 import fixit.model.TroubleCode;
 import fixit.model.User;
 import fixit.model.UserProfile;
@@ -11,10 +14,11 @@ import fixit.service.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
-import org.json.*;
+import com.google.gson.Gson;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -33,6 +37,9 @@ public class AndroidController {
 
 	@Autowired
 	CarService carService;
+	
+	@Autowired
+	CarTroubleCodeService carTroubleCodeService;
 
 	/**
 	 * 
@@ -55,8 +62,31 @@ public class AndroidController {
 			user.setLoggedIn(true);
 			System.out.println("In user logged in = " + user.isLoggedIn());
 			userService.updateUser(user);
-			JSONObject jsonObject = new JSONObject(user);
-			return jsonObject.toString();
+			
+			
+			// to JSONObject
+			JSONObject jo = new JSONObject();
+			jo.put("id", user.getId());
+			jo.put("ssoId", user.getSsoId());
+			jo.put("password", user.getPassword());
+			jo.put("firstName", user.getFirstName());
+			jo.put("lastName", user.getLastName());
+			jo.put("email", user.getEmail());
+			jo.put("loggedIn", user.isLoggedIn());
+			JSONArray ja = new JSONArray();
+			for(Car car : user.getUserCars()) {
+				JSONObject jobj = new JSONObject();
+				jobj.put("id", car.getId());
+				jobj.put("registrationNumber", car.getRegistrationNumber());
+				jobj.put("chasisNumber", car.getChasisNumber());
+				jobj.put("brand", car.getBrand());
+				jobj.put("model", car.getModel());
+				ja.put(jobj);
+			}
+			jo.put("userCars", ja);
+			
+			
+			return jo.toString();
 
 		}else return "FAIL";
 	}
@@ -241,8 +271,14 @@ public class AndroidController {
 	@RequestMapping(value="/deletecar", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String androidDeleteCar(int id){
 
+		List<CarTroubleCode> carTroubleCodes = carTroubleCodeService.findByCarId(id);
+		
+		for(CarTroubleCode carTroubleCode : carTroubleCodes) {
+			carTroubleCodeService.deleteById(carTroubleCode.getId());
+		}
 
 		try {
+			
 			carService.deleteCarById(id);
 			return "SUCCESS";
 		} catch (Exception e) {
@@ -260,6 +296,8 @@ public class AndroidController {
 		 * @param model
 		 * @return
 		 */
+		
+		
 		@RequestMapping(value="/updatecar", method = RequestMethod.GET, produces = "application/json")
 		public @ResponseBody String androidUpdateCar(int id, String registrationNumber, String chasisNumber, String brand, String model){
 
@@ -277,6 +315,68 @@ public class AndroidController {
 				e.printStackTrace();
 				return "FAILURE";
 			}
+	}
+		
+		@RequestMapping(value="/addtccar", method = RequestMethod.GET, produces = "application/json")
+		public @ResponseBody String androidAddTCCar(int id, String number){
+
+			Car car = carService.findById(id);
+			
+			TroubleCode troubleCode = troubleCodeService.findByNumber(number);
+			
+			if(troubleCode == null) {
+				troubleCode = new TroubleCode ();
+				troubleCode.setNumber(number);
+				troubleCode.setFaultLocation("unknown");
+				troubleCodeService.saveTroubleCode(troubleCode);
+			}
+			
+			troubleCode.setId(troubleCodeService.findByNumber(number).getId());
+			
+			
+			CarTroubleCode carTroubleCode = new CarTroubleCode();
+			carTroubleCode.setCar(car);
+			carTroubleCode.setTroubleCode(troubleCode);
+			carTroubleCode.setCarID(car.getId());
+			carTroubleCode.setTroubleCodeId(troubleCode.getId());
+			carTroubleCode.setJob("Nothing done yet");
+			
+			System.out.println(carTroubleCode.toString());
+			
+
+			try {
+				carTroubleCodeService.saveCarTroubleCode(carTroubleCode);
+				return "SUCCESS";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "FAILURE";
+			}
+	}
+		
+		@RequestMapping(value="/viewtccar", method = RequestMethod.GET, produces = "application/json")
+		public @ResponseBody String androidViewTCCar(int carId){
+			
+			
+
+			List<CarTroubleCode> carTroubleCodes = carTroubleCodeService.findByCarId(carId);
+			JSONObject jo = new JSONObject();
+			jo.put("carId", carId);
+			jo.put("registrationNumber", carService.findById(carId).getRegistrationNumber());
+			
+			JSONArray ja = new JSONArray ();
+			
+			for(CarTroubleCode carTroubleCode : carTroubleCodes) {
+				JSONObject jobj = new JSONObject();
+				jobj.put("number", carTroubleCode.getTroubleCode().getNumber());
+				jobj.put("faultLocation", carTroubleCode.getTroubleCode().getFaultLocation());
+				jobj.put("id", carTroubleCode.getTroubleCode().getId());
+				jobj.put("job", carTroubleCode.getJob());
+				ja.put(jobj);
+			}
+			jo.put("troubleCodes", ja);
+			
+			return jo.toString();
+			
 	}
 
 

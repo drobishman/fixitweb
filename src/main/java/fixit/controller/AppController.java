@@ -349,7 +349,6 @@ public class AppController {
         CarTroubleCode carTroubleCode = carTroubleCodeService.findById(id);
         
         model.addAttribute("carTroubleCode", carTroubleCode);
-        model.addAttribute("edit", true);
         User loggedinuser = userService.findBySSO(getPrincipal());
         model.addAttribute("loggedinuser", loggedinuser);
         return "editcartroublecode";
@@ -364,7 +363,9 @@ public class AppController {
             ModelMap model, @PathVariable int id) {
  
         if (result.hasErrors()) {
+        	System.out.println("Binding ERROR!!!" + result.toString());
             return "editcartroublecode";
+            
         }
  
         CarTroubleCode currentCarTroubleCode = carTroubleCodeService.findById(id);

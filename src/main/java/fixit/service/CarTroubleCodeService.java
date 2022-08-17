@@ -6,6 +6,8 @@ import fixit.model.*;
 
 public interface CarTroubleCodeService {
 	
+	List<CarTroubleCode> findByCarId (int carId);
+	
 	CarTroubleCode findById (int id);
 	
 	void saveCarTroubleCode (CarTroubleCode carTroubleCode);

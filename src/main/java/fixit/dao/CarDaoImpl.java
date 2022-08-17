@@ -21,9 +21,6 @@ public class CarDaoImpl extends AbstractDao<Integer, Car> implements CarDao {
 	@Override
 	public Car findById(int id) {
 		Car car = getByKey(id);
-        if(car!=null){
-            Hibernate.initialize(car.getTroubleCodes());
-        }
         return car;
 	}
 

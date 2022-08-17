@@ -65,4 +65,13 @@ public class CarTroubleCodeDaoImpl extends AbstractDao<Integer, CarTroubleCode> 
     return cars;
     
 	}
+
+	@Override
+	public List<CarTroubleCode> findByCarId(int carId) {
+		logger.info("carId : {}", carId);
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("carId", carId));
+        List<CarTroubleCode> carTroubleCodes = (List<CarTroubleCode>)crit.list();
+        return carTroubleCodes;
+	}
 }

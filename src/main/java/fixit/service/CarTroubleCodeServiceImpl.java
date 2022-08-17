@@ -47,4 +47,10 @@ public class CarTroubleCodeServiceImpl implements CarTroubleCodeService {
 	public List<CarTroubleCode> findAllCarTroubleCodes() {
 		return dao.findAllCarTroubleCodes();
 	}
+
+	@Override
+	public List<CarTroubleCode> findByCarId(int carId) {
+		// TODO Auto-generated method stub
+		return dao.findByCarId (carId);
+	}
 }
