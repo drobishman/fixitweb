@@ -47,6 +47,14 @@ public class CarTroubleCode implements Serializable{
 	@NotEmpty
 	@Column(name="job", nullable=false)
 	private String job;
+	
+	@NotNull
+	@Column(name="lon", nullable=false)
+	private double lon;
+	
+	@NotNull
+	@Column(name="lat", nullable=false)
+	private double lat;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "car_id")
@@ -113,6 +121,22 @@ public class CarTroubleCode implements Serializable{
 
 	public void setTroubleCode(TroubleCode troubleCode) {
 		this.troubleCode = troubleCode;
+	}
+	
+	public double getLon() {
+		return lon;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 	
 	@Override

@@ -22,6 +22,8 @@ public class CarTroubleCodeServiceImpl implements CarTroubleCodeService {
 			entity.setTroubleCodeId(carTroubleCode.getTroubleCodeId());
 			entity.setCarID(carTroubleCode.getCarId());
 			entity.setJob(carTroubleCode.getJob());
+			entity.setLon(carTroubleCode.getLon());
+			entity.setLat(carTroubleCode.getLat());
 		}
 	}
 	

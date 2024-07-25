@@ -56,6 +56,8 @@ CREATE TABLE car_trouble_code (
    car_id BIGINT NOT NULL,
    trouble_code_id BIGINT NOT NULL,
    job VARCHAR(50),
+   lon FLOAT NOT NULL,
+   lat FLOAT NOT NULL,
    PRIMARY KEY (id),
    CONSTRAINT fk_broken_car FOREIGN KEY (car_id) REFERENCES car (id),
    CONSTRAINT fk_trouble_code FOREIGN KEY (trouble_code_id) REFERENCES trouble_code (id) ON DELETE CASCADE
@@ -72,8 +74,8 @@ VALUES ('ADMIN');
 INSERT INTO user_profile(type)
 VALUES ('DBA');
 
-INSERT INTO app_user(sso_id, password, first_name, last_name, email)
-VALUES ('sam','$2a$10$.9hCqKyQdKSB.tixU5NUZ.iccZ.Hr8n4Ezv8h43O0oHPKmUDTCwWO', 'Sam','Smith','samy@xyz.com');
+INSERT INTO app_user(sso_id, password, first_name, last_name, email, logged_in)
+VALUES ('sam','$2a$10$.9hCqKyQdKSB.tixU5NUZ.iccZ.Hr8n4Ezv8h43O0oHPKmUDTCwWO', 'Sam','Smith','samy@xyz.com',true);
   
 INSERT INTO app_user_user_profile (user_id, user_profile_id)
   SELECT user.id, profile.id FROM app_user user, user_profile profile

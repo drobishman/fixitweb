@@ -318,7 +318,7 @@ public class AndroidController {
 	}
 		
 		@RequestMapping(value="/addtccar", method = RequestMethod.GET, produces = "application/json")
-		public @ResponseBody String androidAddTCCar(int id, String number){
+		public @ResponseBody String androidAddTCCar(int id, String number, double lon, double lat){
 
 			Car car = carService.findById(id);
 			
@@ -339,6 +339,8 @@ public class AndroidController {
 			carTroubleCode.setTroubleCode(troubleCode);
 			carTroubleCode.setCarID(car.getId());
 			carTroubleCode.setTroubleCodeId(troubleCode.getId());
+			carTroubleCode.setLat(lat);
+			carTroubleCode.setLon(lon);
 			carTroubleCode.setJob("Nothing done yet");
 			
 			System.out.println(carTroubleCode.toString());
